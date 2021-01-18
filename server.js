@@ -18,10 +18,7 @@ app.use(express.static(distDir));
 
 // MongoDB cluster connection string
 // mongodb+srv://<dbname>:<password>@cluster-8rplq1jc.kt4ut.mongodb.net/<dbname>?retryWrites=true&w=majority
-// mongodb+srv://heroku_8rplq1jc:4svpdmd11tchrqsqa4655bhuhg@cluster-8rplq1jc.kt4ut.mongodb.net/heroku_8rplq1jc?retryWrites=true&w=majority
-
-// mLab connection string
-// mongodb://heroku_8rplq1jc:4svpdmd11tchrqsqa4655bhuhg@ds215388.mlab.com:15388/heroku_8rplq1jc
+// mongodb+srv://lromero:123@cluster0.qyczp.mongodb.net/my-hammer-db?retryWrites=true&w=majority
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB_URI || `mongodb://localhost:27017/test`, {
