@@ -10,7 +10,10 @@ import { AuthService } from './../services/shared/auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  currentUser: Object = {};
+  currentUser = {
+    name : String,
+    email : String
+  };
 
   constructor(
     public authService: AuthService,
@@ -18,7 +21,8 @@ export class DashboardComponent implements OnInit {
   ) {
     let id = this.actRoute.snapshot.paramMap.get('id');
     this.authService.getUserProfile(id).subscribe(res => {
-      this.currentUser = res.msg;
+      this.currentUser.name = res.msg.name;
+      this.currentUser.email = res.msg.email;
       console.log(this.currentUser)
     })
   }

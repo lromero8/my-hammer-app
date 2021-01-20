@@ -69,7 +69,7 @@ export class AuthService {
   // }
 
   getUserProfile(id: any) {
-    return this.http.get<any>(`${this.endpoint}/dashboard/${id}`, { headers: this.headers })
+    return this.http.get<any>(`${this.endpoint}/user/${id}`, { headers: this.headers })
     .pipe(map(data => {
         return data;
         }));
