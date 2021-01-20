@@ -42,13 +42,13 @@ mongoose.connect(process.env.DB_URI || `mongodb://localhost:27017/my-hammer-test
 
 /* ------------------- SIGN-UP -------------------- */
 
-app.post("/signup",
+app.post("/api/signup",
   [
     check('name')
         .not()
         .isEmpty()
         .isLength({ min: 3 })
-        .withMessage('Name must be atleast 3 characters long'),
+        .withMessage('Name must be at least 3 characters long'),
     check('email', 'Email is required')
         .not()
         .isEmpty(),
@@ -59,10 +59,12 @@ app.post("/signup",
 ],
 (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body);
+    console.log(errors);
 
     if (!errors.isEmpty()) {
-        return res.status(422).jsonp(errors.array());
+        return res.status(422).send(errors.array());
+        // return res.status(404).send({ message: "User Not found." });
+        // return res.status(401).json({ message: 'Not found' })
     }
     else {
         bcrypt.hash(req.body.password, 10).then((hash) => {
@@ -88,40 +90,44 @@ app.post("/signup",
 
 /* ------------------- SIGN-IN -------------------- */
 
-app.post("/signin", (req, res, next) => {
-    let getUser;
+app.post("/api/signin", (req, res) => {
+    // console.log(req.body)
     User.findOne({
         email: req.body.email
-    }).then(user => {
+    })
+      .then(user => {
         if (!user) {
-            return res.status(401).json({
-                message: "Authentication failed"
-            });
+          return res.status(404).send({ message: "User Not found." });
         }
-        getUser = user;
-        return bcrypt.compare(req.body.password, user.password);
-    }).then(response => {
-        if (!response) {
-            return res.status(401).json({
-                message: "Authentication failed"
-            });
+  
+        var passwordIsValid = bcrypt.compareSync(
+          req.body.password,
+          user.password
+        );
+  
+        if (!passwordIsValid) {
+          return res.status(401).send({
+            accessToken: null,
+            message: "Invalid Password!"
+          });
         }
+  
         let jwtToken = jwt.sign({
-            email: getUser.email,
-            userId: getUser._id
+            email: user.email,
+            userId: user._id
         }, "longer-secret-is-better", {
             expiresIn: "1h"
         });
         res.status(200).json({
             token: jwtToken,
             expiresIn: 3600,
-            _id: getUser._id
+            _id: user._id
         });
-    }).catch(err => {
-        return res.status(401).json({
-            message: "Authentication failed"
-        });
-    });
+
+      })
+      .catch(err => {
+        res.status(500).send({ message: err.message });
+      });
 });
 
 /* ------------------- SIGN-IN -------------------- */
@@ -129,7 +135,7 @@ app.post("/signin", (req, res, next) => {
 
 /* ------------------- GET USERS -------------------- */
 
-app.get('/users', async (request, response) => {
+app.get('/api/users', async (request, response) => {
     try {
         var result = await User.find().exec();
         response.send(result);
@@ -147,7 +153,7 @@ app.get('/users', async (request, response) => {
 
 /* ------------------- DASHBOARD -------------------- */
 
-app.get('/dashboard/:id', authorize, (req, res, next) => {
+app.get('/api/dashboard/:id', authorize, (req, res, next) => {
     User.findById(req.params.id, (error, data) => {
         if (error) {
             return next(error);
