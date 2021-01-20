@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const User = require('./models/User');
+const Item = require('./models/Item');
 const authorize = require("./middlewares/auth");
 const { check, validationResult } = require('express-validator');
 
@@ -59,7 +60,7 @@ app.post("/api/signup",
 ],
 (req, res, next) => {
     const errors = validationResult(req);
-    console.log(errors);
+    // console.log(errors);
 
     if (!errors.isEmpty()) {
         return res.status(422).send(errors.array());
@@ -149,11 +150,9 @@ app.get('/api/users', async (request, response) => {
 
 /* ------------------- GET USERS -------------------- */
 
+/* ------------------- GET SINGLE USERS -------------------- */
 
-
-/* ------------------- DASHBOARD -------------------- */
-
-app.get('/api/dashboard/:id', authorize, (req, res, next) => {
+app.get('/api/user/:id', authorize, (req, res, next) => {
     User.findById(req.params.id, (error, data) => {
         if (error) {
             return next(error);
@@ -165,43 +164,59 @@ app.get('/api/dashboard/:id', authorize, (req, res, next) => {
     })
 });
 
+/* ------------------- GET SINGLE USERS -------------------- */
+
+
+
+
+/* ------------------- DASHBOARD -------------------- */
+/* ------------------- GET MENU  -------------------- */
+
+
+app.get('/api/item', async (req, res, next) => {
+    try {
+        var result = await Item.find().exec();
+        // res.send(result);
+        res.status(200).json(result);
+
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+/* ------------------- GET MENU  -------------------- */
 /* ------------------- DASHBOARD -------------------- */
 
+/* ------------------- POST MENU ITEM -------------------- */
+
+app.post("/api/item", authorize, (req, res) => {
+
+    var myData = new Item(req.body);
+    myData.save()
+        .then(item => {
+            // res.send("Item saved to database");
+            res.status(200).json({
+                status: 200,
+                msg: 'Item saved to database',
+            });
+        })
+        .catch(err => {
+            res.status(400).send("Unable to save to database");
+        });
+
+})
+
+/* ------------------- POST MENU ITEM -------------------- */
 
 
+/* ------------------- DELETE ITEM -------------------- */
 
-// /* ------------------- POST USER -------------------- */
+app.delete("/api/item/:id", async (request, response) => {
+    try {
+        var result = await Item.deleteOne({ _id: request.params.id }).exec();
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
 
-
-// app.post("/api/user", (req, res) => {
-
-//     var myData = new User(req.body);
-//     myData.save()
-//         .then(item => {
-//             // res.send("User saved to database");
-//             res.status(200).json({
-//                 status: 200,
-//                 msg: 'User saved to database',
-//             });
-//         })
-//         .catch(err => {
-//             res.status(400).send("Unable to save to database");
-//         });
-
-// })
-
-// /* ------------------- GET USER -------------------- */
-
-// app.get("/api/user", async (request, response) => {
-
-//     try {
-//         var result = await User.find().exec();
-//         response.send(result);
-//         // response.status(200).json(result);
-//         // console.log(result)
-//         // response.send("It works");
-//     } catch (error) {
-//         response.status(500).send(error);
-//     }
-
-// });
+/* ------------------- DELETE ITEM -------------------- */
