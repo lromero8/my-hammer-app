@@ -1,16 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu</title>
-</head>
-<body>
+  <div class="container bg-dark text-white">
+    Food menu
 
-  <div>
-    <button [routerLink]="['/sign-in']">Login</button>
-    <h2>This is the menu</h2>
+    <div class="row food-section text-center">
+      <div class="col">
+        <img class="img-fluid" src="../../assets/images/3x/burger@3x.png" alt="Burger image">
+      </div>
+      <div class="col">
+        <span>Hamburgers</span>
+        <div class="row d-flex" *ngFor="let burger of this.data; index as i">
+          <div class="col">
+            <p *ngIf="burger.category.toLowerCase() == 'burger'">{{ burger.item }}</p>
+          </div>
+          <div class="col dots" *ngIf="burger.category.toLowerCase() == 'burger'"></div>
+          <div class="col">
+            <p *ngIf="burger.category.toLowerCase() == 'burger'">$ {{ burger.price }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row food-section text-center">
+      <div class="col">
+        <span>Sandwiches</span>
+        <div class="row d-flex" *ngFor="let sandwich of this.data; index as i">
+          <div class="col">
+            <p *ngIf="sandwich.category.toLowerCase() == 'sandwich'">{{ sandwich.item }}</p>
+          </div>
+          <div class="col dots" *ngIf="sandwich.category.toLowerCase() == 'sandwich'"></div>
+          <div class="col">
+            <p *ngIf="sandwich.category.toLowerCase() == 'sandwich'">$ {{ sandwich.price }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <img class="img-fluid" src="../../assets/images/3x/sandwich@3x.png" alt="Sandwich image">
+      </div>
+    </div>
+
+    <div class="row food-section text-center">
+      <div class="col">
+        <img class="img-fluid" src="../../assets/images/3x/drink@3x.png" alt="Drink image">
+      </div>
+      <div class="col">
+        <span>Drinks</span>
+        <div class="row d-flex" *ngFor="let drink of this.data; index as i">
+          <div class="col">
+            <p *ngIf="drink.category == 'Drink'">{{ drink.item }}</p>
+          </div>
+          <div class="col dots" *ngIf="drink.category == 'Drink'"></div>
+          <div class="col">
+            <p *ngIf="drink.category == 'Drink'">$ {{ drink.price }}</p>
+          </div>
+        </div>
+      </div>
+    </div>   
+
   </div>
-  
-</body>
-</html>

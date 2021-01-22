@@ -6,4 +6,68 @@
             <p><strong>Email:</strong> {{this.currentUser.email}}</p>
         </div>
     </div>
+    <button type="button" class="btn btn-primary" (click)="open(content)">Add</button>
+
+    
+  <!-- TABLE -->
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Category</th>
+        <th scope="col">Item</th>
+        <th scope="col">Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of items; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <!-- <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + item.flag" class="mr-2" style="width: 20px"> -->
+          {{ item.category }}
+        </td>
+        <td>{{ item.item }}</td>
+        <td>${{ item.price }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
+
+
+<!-- MODAL -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create Item</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form class="form-create" [formGroup]="createForm" (ngSubmit)="createItem()">
+        <div class="modal-body">
+            <div class="form-group">
+                <h3 class="h3 mb-3 font-weight-normal text-center">Please enter item</h3>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" class="form-control" formControlName="category" placeholder="Category" required>
+                </div>
+                <div class="form-group">
+                    <label>Item</label>
+                    <input type="text" class="form-control" formControlName="item" placeholder="Item" required>
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" class="form-control" formControlName="price" placeholder="Price" required>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid">Save</button>
+        </div>
+    </form>
+  </ng-template>
+  
+  <!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button> -->

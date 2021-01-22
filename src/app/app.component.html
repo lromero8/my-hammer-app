@@ -7,6 +7,19 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+<div
+  class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed-top">
+  <!-- <h5 class="my-0 mr-md-auto font-weight-normal">My Hammer Restaurant</h5> -->
+  <a class="navbar-brand my-0 mr-md-auto font-weight-normal text-dark" routerLink="/menu">My Hammer Restaurant</a>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <span *ngIf="this.authService.isLoggedIn" class="p-2 text-dark" (click)="goToDashboard()" style="cursor: pointer;">Admin Dashboard</span>
+    <a *ngIf="!this.authService.isLoggedIn" class="p-2 text-dark" routerLinkActive="active" routerLink="/sign-in">Sign
+      in</a>
+  </nav>
+  <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active"
+    routerLinkActive="active" routerLink="/sign-up">Sign up</a>
+  <button (click)="logout()" *ngIf="this.authService.isLoggedIn" type="button" class="btn btn-danger">Logout</button>
+</div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

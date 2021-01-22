@@ -1,0 +1,13 @@
+.container {
+    margin-top: 10%;
+}
+
+.food-section {
+    margin-top: 5%;
+}
+
+.dots {
+    border-bottom: 2px dotted white;
+    flex-grow: 2;
+    margin-bottom: 20px /* Add a little bottom margin to align the dots with the bottom of the text */
+}
