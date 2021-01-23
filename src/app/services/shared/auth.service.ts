@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 
 export class AuthService {
-  endpoint: string = 'http://localhost:5000/api';
-  // endpoint: string = '/api';
+  // endpoint: string = 'http://localhost:5000/api';
+  endpoint: string = '/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(
