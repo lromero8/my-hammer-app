@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class MenuService {
-  // endpoint: string = 'http://localhost:5000/api';
-  endpoint: string = '/api';
+  endpoint: string = 'http://localhost:5000/api';
+  // endpoint: string = '/api';
 
   constructor(
     private http: HttpClient,
