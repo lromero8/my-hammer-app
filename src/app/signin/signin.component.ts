@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
   signinForm: FormGroup;
+  http_code: Number = 0;
+  message : String = "";
 
 
   constructor(
@@ -28,7 +30,30 @@ export class SigninComponent implements OnInit {
   }
 
   loginUser() {
-    this.authService.signIn(this.signinForm.value)
+
+    this.authService.signIn(this.signinForm.value).subscribe(
+      data => {
+        
+        // console.log(data);
+        localStorage.setItem('access_token', data.token)
+        this.authService.getUserProfile(data._id).subscribe((res) => {
+          localStorage.setItem('uid', res.msg._id)
+          this.router.navigate(['dashboard/' + res.msg._id]);
+        })
+
+      }, 
+      
+      error => {   
+        // console.log(error)
+        this.http_code = error.status;
+        this.message = error.error.message; 
+      },
+      
+      () => {
+        // do something when operation successfully complete
+      });
+
+
   }
 
 }

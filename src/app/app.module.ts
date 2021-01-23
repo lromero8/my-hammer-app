@@ -13,6 +13,7 @@ import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuComponent } from './menu/menu.component';
+import { ToastComponent } from './toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MenuComponent } from './menu/menu.component';
     SigninComponent,
     SignupComponent,
     DashboardComponent,
-    MenuComponent
+    MenuComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

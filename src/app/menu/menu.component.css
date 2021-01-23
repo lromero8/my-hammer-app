@@ -1,9 +1,63 @@
+@font-face {
+    font-family: 'NexaRustSlab-BlackShadow01';
+    src: url('../../assets/fonts/NexaRustSlab-BlackShadow01.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'GoodDog-Plain';
+    src: url('../../assets/fonts/GoodDog-Plain.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: 'RabioHead';
+    src: url('../../assets/fonts/RabioHead.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url('../../assets/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
 .container {
     margin-top: 10%;
+    margin-bottom: 10%;
+    border: 40px solid transparent;
+    /* padding: 15px; */
+    border-image: url(../../assets/images/4x/pattern@4x.png) 70 round;
 }
+
+.my-hammer {
+    font-family: "GoodDog-Plain","Arial",sans-serif;
+    font-size: 57px;
+    color: #FFD101;
+    /* FFD101 */
+}
+
+.logo {
+    width: 25%;
+}
+
+.ribbon {
+    width: 50%;
+}
+
+.food-title {
+    font-family: "RabioHead","Arial",sans-serif;
+    font-size: 37px;
+    color: #fff;
+}
+
+.food-item {
+    font-family: "RabioHead";
+    font-size: 20px;
+    color: #fff;
+}
+
 
 .food-section {
     margin-top: 5%;
+    /* border: 2px solid #5e5e5e;
+    border-radius: 10px; */
 }
 
 .dots {

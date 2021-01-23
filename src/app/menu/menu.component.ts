@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
     this.menuService.getItems().subscribe(
       data => {
         
-        console.log(data);
+        // console.log(data);
         this.data = data;
         // let isBurger = data[].category
         // console.log(isBurger)

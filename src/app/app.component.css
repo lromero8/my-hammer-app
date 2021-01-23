@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'GoodDog-Plain';
+    src: url('../assets/fonts/GoodDog-Plain.TTF') format('truetype');
+}
+
+#hammer-text {
+    font-family: "GoodDog-Plain","Arial",sans-serif;
+    font-size: 27px;
+    color: #5e5e5e;
+    transition: 0.3s;
+}
+
+#hammer-text:hover {
+    color: #FFD101;
+}

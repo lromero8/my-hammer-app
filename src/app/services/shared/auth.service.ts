@@ -20,25 +20,40 @@ export class AuthService {
   }
 
   // Sign-up
+  // signUp(user: typeof User): Observable<any> {
+  //   let api = `${this.endpoint}/signup`;
+  //   return this.http.post(api, user)
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     )
+  // }
+
   signUp(user: typeof User): Observable<any> {
     let api = `${this.endpoint}/signup`;
     return this.http.post(api, user)
-      .pipe(
-        catchError(this.handleError)
-      )
+      .pipe(map( res => {
+        return res;
+      }))
   }
 
   // Sign-in
+  // signIn(user: typeof User) {
+  //   return this.http.post<any>(`${this.endpoint}/signin`, user)
+  //     .subscribe((res: any) => {
+  //       localStorage.setItem('access_token', res.token)
+  //       this.getUserProfile(res._id).subscribe((res) => {
+  //         localStorage.setItem('uid', res.msg._id)
+  //         this.router.navigate(['dashboard/' + res.msg._id]);
+  //       })
+  //     })
+  // }
+
   signIn(user: typeof User) {
     return this.http.post<any>(`${this.endpoint}/signin`, user)
-      .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token)
-        this.getUserProfile(res._id).subscribe((res) => {
-          localStorage.setItem('uid', res.msg._id)
-          this.router.navigate(['dashboard/' + res.msg._id]);
-        })
-      })
-  }
+      .pipe(map(res => {
+        return res;
+      }));
+  }  
 
   getToken() {
     return localStorage.getItem('access_token');

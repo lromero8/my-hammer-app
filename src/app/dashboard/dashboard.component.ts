@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from './../services/shared/auth.service';
 import { MenuService } from './../services/menu/menu.service';
+import { ToastService } from './../services/toast/toast.service';
+
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from "@angular/forms";
@@ -29,9 +31,11 @@ export class DashboardComponent implements OnInit {
 
 
 
+
   constructor(
     public authService: AuthService,
     public menuService: MenuService,
+    public toastService: ToastService,
     private actRoute: ActivatedRoute,
     private modalService: NgbModal,
     public fb: FormBuilder
@@ -40,7 +44,7 @@ export class DashboardComponent implements OnInit {
     this.authService.getUserProfile(id).subscribe(res => {
       this.currentUser.name = res.msg.name;
       this.currentUser.email = res.msg.email;
-      console.log(this.currentUser)
+      // console.log(this.currentUser)
     });
 
     this.getItems();
@@ -61,15 +65,16 @@ export class DashboardComponent implements OnInit {
     this.menuService.createItem(this.createForm.value).subscribe(
       data => {
         
-        console.log(data);
+        // console.log(data);
         this.modalService.dismissAll();
-        this.createForm.reset()
+        this.createForm.reset();
         this.getItems();
+        this.showSuccess();
 
       }, 
       
       error => {   
-        console.log(error)
+        // console.log(error)
       },
       
       () => {
@@ -94,20 +99,29 @@ export class DashboardComponent implements OnInit {
     this.menuService.getItems().subscribe(
       data => {
         
-        console.log(data);
+        // console.log(data);
         // this.data = data;
         this.items = data;
 
       }, 
       
       error => {   
-        console.log(error)
+        // console.log(error)
       },
       
       () => {
         // do something when operation successfully complete
       });
     //Consuming service  
+  }
+
+  showSuccess() {
+    this.toastService.show('Item Created!', {
+      classname: 'bg-success text-light',
+      delay: 2000 ,
+      autohide: true,
+      // headertext: 'Toast Header'
+    });
   }
 
 }
