@@ -47,6 +47,13 @@
     color: #fff;
 }
 
+.food-cat {
+    font-family: "RabioHead";
+    font-size: 30px;
+    font-weight: bold;
+    color: #FFD101;
+}
+
 .food-item {
     font-family: "RabioHead";
     font-size: 25px;

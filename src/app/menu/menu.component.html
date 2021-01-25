@@ -1,4 +1,4 @@
-  <div class="container w-75 bg-dark text-white">
+  <div class="container w-50 bg-dark text-white">
 
     <div class="row text-center mt-5">
       <div class="col">
@@ -23,11 +23,11 @@
       <div class="col-lg-8 col-sm-12 text-center">
         <span class="food-title">Hamburgers</span>
         <div class="row d-flex" *ngFor="let burger of this.data; index as i">
-          <div class="col">
+          <div class="col align-self-end">
             <p class="food-item" *ngIf="burger.category.toLowerCase() == 'burger'">{{ burger.item }}</p>
           </div>
           <div class="col dots" *ngIf="burger.category.toLowerCase() == 'burger'"></div>
-          <div class="col">
+          <div class="col align-self-end">
             <p class="food-item" *ngIf="burger.category.toLowerCase() == 'burger'">$ {{ burger.price }}</p>
           </div>
         </div>
@@ -48,10 +48,10 @@
         <span class="food-title">Sandwiches</span>
         <div class="row d-flex" *ngFor="let sandwich of this.data; index as i">
           <div class="col">
-            <p class="food-item" *ngIf="sandwich.category.toLowerCase() == 'sandwich'">{{ sandwich.item }}</p>
+            <p class="food-item align-self-end" *ngIf="sandwich.category.toLowerCase() == 'sandwich'">{{ sandwich.item }}</p>
           </div>
           <div class="col dots" *ngIf="sandwich.category.toLowerCase() == 'sandwich'"></div>
-          <div class="col">
+          <div class="col align-self-end">
             <p class="food-item" *ngIf="sandwich.category.toLowerCase() == 'sandwich'">$ {{ sandwich.price }}</p>
           </div>
         </div>
@@ -76,11 +76,11 @@
       <div class="col-lg-8 col-sm-12 text-center">
         <span class="food-title">Drinks</span>
         <div class="row d-flex" *ngFor="let drink of this.data; index as i">
-          <div class="col">
+          <div class="col align-self-end">
             <p class="food-item" *ngIf="drink.category.toLowerCase() == 'drink'">{{ drink.item }}</p>
           </div>
           <div class="col dots" *ngIf="drink.category.toLowerCase() == 'drink'"></div>
-          <div class="col">
+          <div class="col align-self-end">
             <p class="food-item" *ngIf="drink.category.toLowerCase() == 'drink'">$ {{ drink.price }}</p>
           </div>
         </div>
@@ -95,12 +95,19 @@
     </div>
 
 
-    <div class="row food-section align-items-center h-100">
+    <div class="row food-section align-items-center h-100 mb-5">
       <div class="col text-center">
         <span class="food-title">Others</span>
-        <div class="row d-flex" *ngFor="let other of this.data; index as i">
+        <div class="row d-flex" *ngFor="let other of this.data; index as i">         
           <div class="col">
-            <p class="food-item" 
+            <span class="food-cat align-self-end" 
+            *ngIf="
+              other.category.toLowerCase() != 'burger' &&
+              other.category.toLowerCase() != 'sandwich' &&
+              other.category.toLowerCase() != 'drink'">
+            {{ other.category }}
+          </span>
+            <p class="food-item align-self-end" 
               *ngIf="
                 other.category.toLowerCase() != 'burger' &&
                 other.category.toLowerCase() != 'sandwich' &&
@@ -114,7 +121,7 @@
               other.category.toLowerCase() != 'sandwich' &&
               other.category.toLowerCase() != 'drink'">
           </div>
-          <div class="col">
+          <div class="col align-self-end">
             <p class="food-item"           
             *ngIf="
               other.category.toLowerCase() != 'burger' &&
@@ -126,6 +133,7 @@
         </div>
       </div>
     </div>
+
 
 
   </div>
